@@ -12,12 +12,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.*;
 import java.security.cert.CertificateException;
-import com.example.demo.exceptions.SpringRedditException;
+import com.example.demo.exceptions.SpringHotelManagerException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
-import java.util.Date;
 
 import static io.jsonwebtoken.Jwts.parser;
 import static java.util.Date.from;
@@ -36,7 +35,7 @@ public class JwtProvider {
             InputStream resourceAsStream = getClass().getResourceAsStream("/springblog.jks");
             keyStore.load(resourceAsStream, "secret".toCharArray());
         } catch (KeyStoreException | CertificateException | NoSuchAlgorithmException | IOException e) {
-            throw new SpringRedditException("Exception occurred while loading keystore");
+            throw new SpringHotelManagerException("Exception occurred while loading keystore");
         }
 
     }
@@ -54,7 +53,7 @@ public class JwtProvider {
         try {
             return (PrivateKey) keyStore.getKey("springblog", "secret".toCharArray());
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
-            throw new SpringRedditException("Exception occured while retrieving public key from keystore");
+            throw new SpringHotelManagerException("Exception occured while retrieving public key from keystore");
         }
     }
 
@@ -67,7 +66,7 @@ public class JwtProvider {
         try {
             return keyStore.getCertificate("springblog").getPublicKey();
         } catch (KeyStoreException e) {
-            throw new SpringRedditException("Exception occured while " +
+            throw new SpringHotelManagerException("Exception occured while " +
                     "retrieving public key from keystore");
         }
     }

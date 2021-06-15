@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 
-import com.example.demo.exceptions.SpringRedditException;
+import com.example.demo.exceptions.SpringHotelManagerException;
 import com.example.demo.model.RefreshToken;
 import com.example.demo.repository.RefreshTokenRepository;
 import lombok.AllArgsConstructor;
@@ -28,7 +28,7 @@ public class RefreshTokenService {
 
     void validateRefreshToken(String token) {
         refreshTokenRepository.findByToken(token)
-                .orElseThrow(() -> new SpringRedditException("Invalid refresh Token"));
+                .orElseThrow(() -> new SpringHotelManagerException("Invalid refresh Token"));
     }
 
     public void deleteRefreshToken(String token) {

@@ -37,4 +37,7 @@ public class Room {
     @OneToMany(mappedBy = "id", targetEntity = Reservation.class)
     private List<Reservation> reservations;
 
+    @OneToMany(mappedBy = "id", targetEntity = Rent.class)
+    private List<Rent> rents;
+
  }

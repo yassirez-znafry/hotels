@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.exceptions.SpringRedditException;
+import com.example.demo.exceptions.SpringHotelManagerException;
 import com.example.demo.model.NotificationEmail;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ public class MailService {
     void sendMail(NotificationEmail notificationEmail) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setFrom("afkar@email.com");
+            messageHelper.setFrom("hotels@email.com");
             messageHelper.setTo(notificationEmail.getRecipient());
             messageHelper.setSubject(notificationEmail.getSubject());
             messageHelper.setText(notificationEmail.getBody());
@@ -32,7 +32,7 @@ public class MailService {
             log.info("Activation email sent!!");
         } catch (MailException e) {
             log.error("Exception occurred when sending mail", e);
-            throw new SpringRedditException("Exception occurred when sending mail to " + notificationEmail.getRecipient(), e);
+            throw new SpringHotelManagerException("Exception occurred when sending mail to " + notificationEmail.getRecipient(), e);
         }
     }
 }

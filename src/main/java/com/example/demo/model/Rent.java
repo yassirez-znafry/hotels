@@ -1,12 +1,10 @@
 package com.example.demo.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
 import java.sql.Timestamp;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -15,18 +13,16 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Payment {
+public class Rent {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "payment_id")
+    @Column(name = "rent_id")
     private Long id;
-    private Long sum;
+
+    private Boolean paid;
 
     @OneToOne
-    private Rent rent;
+    private Reservation reservation;
 
-    @OneToOne
-    private User user;
 
-    private Timestamp paymentDate;
 }

@@ -4,7 +4,7 @@ import com.example.demo.dto.AuthenticationResponse;
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.dto.RefreshTokenRequest;
 import com.example.demo.dto.RegisterRequest;
-import com.example.demo.exceptions.SpringRedditException;
+import com.example.demo.exceptions.SpringHotelManagerException;
 import com.example.demo.model.NotificationEmail;
 import com.example.demo.model.User;
 import com.example.demo.model.VerificationToken;
@@ -44,12 +44,13 @@ public class AuthService {
         user.setUserName(registerRequest.getUsername());
         user.setUserEmail(registerRequest.getEmail());
         user.setUserPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        user.setDateCreaUser(Instant.now());
+        user.setDateCreateUser(Instant.now());
+        user.setAccessLevel(0);
         user.setUserEnabled(false);
         userRepository.save(user);
 
         String token = generateVerificationToken(user);
-        mailService.sendMail(new NotificationEmail("please activate your account", user.getUserEmail(), "Thank you for signing up to Afkar, " +
+        mailService.sendMail(new NotificationEmail("please activate your account", user.getUserEmail(), "Thank you for signing up to HotelManager, " +
                 "please click on the below url to activate your account : " +
                 "http://localhost:8080/api/auth/accountVerification/" + token));
 
@@ -67,13 +68,13 @@ public class AuthService {
 
     public void verifyAccount(String token) {
         Optional<VerificationToken> verificationToken = verificationTokenRepository.findByVtToken(token);
-        verificationToken.orElseThrow(()->new SpringRedditException("Invalid Token"));
+        verificationToken.orElseThrow(()->new SpringHotelManagerException("Invalid Token"));
         fetchUserAndEnable(verificationToken.get());
     }
     @Transactional
     private void fetchUserAndEnable(VerificationToken verificationToken) {
         String username = verificationToken.getUser().getUserName();
-        User user = userRepository.findByUserName(username).orElseThrow(()->new SpringRedditException("User not found with name - "+username));
+        User user = userRepository.findByUserName(username).orElseThrow(()->new SpringHotelManagerException("User not found with name - "+username));
         user.setUserEnabled(true);
         userRepository.save(user);
     }

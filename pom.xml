@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>hotel_manager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Hotel Manager</name>
+	<description>Web service to manage hotels</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -132,8 +132,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.5.1</version> <!-- or newer version -->
 				<configuration>
-					<source>1.8</source> <!-- depending on your project -->
-					<target>1.8</target> <!-- depending on your project -->
+					<source>9</source> <!-- depending on your project -->
+					<target>9</target> <!-- depending on your project -->
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.mapstruct</groupId>
@@ -143,7 +143,7 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-							<version>1.18.8</version>
+							<version>1.18.20</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
