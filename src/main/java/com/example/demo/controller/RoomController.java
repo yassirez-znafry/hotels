@@ -24,6 +24,7 @@ public class RoomController {
         List<RoomInfos> allRoomsInfos = new ArrayList<RoomInfos>();
         for(Room room : allRooms){
             RoomInfos roomInfos = new RoomInfos();
+            roomInfos.setRoomId(room.getId());
             roomInfos.setRoomNumber(room.getRoomNumber());
             roomInfos.setRoomPrice(room.getRoomPrice());
             roomInfos.setRoomType(room.getRoomType().getRoomTypeName());

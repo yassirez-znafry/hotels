@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RoomInfos {
+    private Long roomId;
     private Long roomNumber;
     private Long roomPrice;
     private String roomType;
