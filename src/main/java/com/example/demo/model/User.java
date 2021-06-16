@@ -7,6 +7,7 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -19,6 +20,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class User {
     @Id
     @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
     @NotBlank(message = "Username is required")
     @Column(unique = true)
@@ -36,5 +38,11 @@ public class User {
 
     private Integer accessLevel;
     private String image;
+
+    @OneToMany(mappedBy = "id", targetEntity = Reservation.class)
+    private List<Reservation> reservations;
+
+    @OneToMany(mappedBy = "claim_id", targetEntity = Claim.class)
+    private List<Claim> claims;
 
 }
