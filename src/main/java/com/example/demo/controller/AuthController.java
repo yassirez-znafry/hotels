@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
@@ -22,6 +25,23 @@ public class AuthController {
     private final RefreshTokenService refreshTokenService;
 
 
+    @GetMapping("/")
+    public List<UserInfos> getAllUser(){
+        List<User> users = authService.getAllUsers();
+        List<UserInfos> userInfosList = new ArrayList<UserInfos>();
+
+        for(User user : users){
+            UserInfos userInfos = new UserInfos();
+            userInfos.setId(user.getUserId());
+            userInfos.setUsername(user.getUserName());
+            userInfos.setEmail(user.getUserEmail());
+            userInfos.setImage(user.getImage());
+
+            userInfosList.add(userInfos);
+        }
+
+        return userInfosList;
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest){

@@ -11,6 +11,7 @@ import com.example.demo.model.VerificationToken;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.VerificationTokenRepository;
 import com.example.demo.security.JwtProvider;
+import jdk.dynalink.linker.LinkerServices;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -71,12 +73,18 @@ public class AuthService {
         verificationToken.orElseThrow(()->new SpringHotelManagerException("Invalid Token"));
         fetchUserAndEnable(verificationToken.get());
     }
+
     @Transactional
-    private void fetchUserAndEnable(VerificationToken verificationToken) {
+    public void fetchUserAndEnable(VerificationToken verificationToken) {
         String username = verificationToken.getUser().getUserName();
         User user = userRepository.findByUserName(username).orElseThrow(()->new SpringHotelManagerException("User not found with name - "+username));
         user.setUserEnabled(true);
         userRepository.save(user);
+    }
+
+    @Transactional
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
     }
 
     public AuthenticationResponse login(LoginRequest loginRequest) {

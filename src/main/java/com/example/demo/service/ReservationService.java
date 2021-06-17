@@ -55,6 +55,20 @@ public class ReservationService {
         return reservationList;
     }
 
+    public List<Reservation> getAllReservations(){
+        List<Reservation> reservationList = reservationRepository.findAll();
+        return reservationList;
+    }
+
+    public List<Reservation> getAllReservationsByUserId(Long user_id){
+        Optional<User> user = userRepository.findById(user_id);
+        user.orElseThrow(() -> new SpringHotelManagerException("User with the id given not found!!"));
+
+        List<Reservation> reservationList = reservationRepository.findAllByUser(user.get());
+        return reservationList;
+    }
+
+
     public void modifyReservationForCurrentUser(ReservationInfos reservationInfos){
 
         Optional<Reservation> reservation = reservationRepository.findById(reservationInfos.getReservationId());

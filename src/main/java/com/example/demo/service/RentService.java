@@ -11,10 +11,12 @@ import com.example.demo.model.Room;
 import com.example.demo.model.User;
 import com.example.demo.repository.RentRepository;
 import com.example.demo.repository.ReservationRepository;
+import com.example.demo.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,6 +25,7 @@ import java.util.Optional;
 public class RentService {
     private final RentRepository rentRepository;
     private final ReservationRepository reservationRepository;
+    private final UserRepository userRepository;
 
     private final AuthService authService;
 
@@ -42,6 +45,18 @@ public class RentService {
 
         rentRepository.save(rent);
     }
+
+    public List<Rent> getAllRents(){
+        return rentRepository.findAll();
+    }
+
+    public List<Rent> getAllRentsByUserId(Long user_id){
+        Optional<User> user = userRepository.findById(user_id);
+        user.orElseThrow(() -> new SpringHotelManagerException("User with the id given not found!!"));
+
+        return rentRepository.findAllByUser(user.get());
+    }
+
 
     public void cancelRent(RentInfos rentInfos){
 
