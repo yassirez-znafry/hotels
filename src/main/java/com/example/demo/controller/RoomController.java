@@ -4,14 +4,17 @@ package com.example.demo.controller;
 import com.example.demo.dto.RegisterRequest;
 import com.example.demo.dto.RoomInfos;
 import com.example.demo.model.Room;
+import com.example.demo.service.AuthService;
 import com.example.demo.service.RoomService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
@@ -19,6 +22,7 @@ import static org.springframework.http.HttpStatus.OK;
 @AllArgsConstructor
 public class RoomController {
     private final RoomService roomService;
+    private final AuthService authService;
 
     @GetMapping(path = "/")
     public List<RoomInfos> getAllRooms(){
@@ -39,20 +43,31 @@ public class RoomController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addRoom(@RequestBody RoomInfos roomInfos){
-        roomService.addRoom(roomInfos);
-        return new ResponseEntity<>("user registration successful", OK);
+        if(authService.getCurrentUser().getAccessLevel() == 2) {
+            roomService.addRoom(roomInfos);
+            return new ResponseEntity<>("Room added successfully", OK);
+        }
+        return new ResponseEntity<>("Room not added", HttpStatus.FORBIDDEN);
+
     }
 
     @PostMapping("/modify")
-    public ResponseEntity<String> modifyRoom(@RequestBody RoomInfos roomInfos){
-        roomService.modifyRoom(roomInfos);
-        return new ResponseEntity<>("user modification successful", OK);
+    public ResponseEntity<String> modifyRoom(@RequestBody RoomInfos roomInfos) {
+        if (authService.getCurrentUser().getAccessLevel() >= 1) {
+            roomService.modifyRoom(roomInfos);
+            return new ResponseEntity<>("Room modification successful", OK);
+        }
+        return new ResponseEntity<>("Room modification unsuccessful", FORBIDDEN);
     }
 
     @DeleteMapping("/delete/{room_id}")
-    public ResponseEntity<String> deleteRoom(@PathVariable Long room_id){
-        roomService.deleteRoomById(room_id);
-        return new ResponseEntity<>("user deleted successfully", OK);
+    public ResponseEntity<String> deleteRoom(@PathVariable Long room_id) {
+        if (authService.getCurrentUser().getAccessLevel() == 2) {
+            roomService.deleteRoomById(room_id);
+            return new ResponseEntity<>("Room deleted successfully", OK);
+        }
+        return new ResponseEntity<>("Room deleted successfully", FORBIDDEN);
     }
+
 
 }

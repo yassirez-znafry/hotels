@@ -4,6 +4,7 @@ import com.example.demo.dto.ReservationInfos;
 import com.example.demo.dto.RoomInfos;
 import com.example.demo.model.Reservation;
 import com.example.demo.model.Room;
+import com.example.demo.service.AuthService;
 import com.example.demo.service.ReservationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +20,15 @@ import static org.springframework.http.HttpStatus.OK;
 @AllArgsConstructor
 public class ReservationController {
     private final ReservationService reservationService;
+    private final AuthService authService;
 
     @GetMapping(path = "/")
-    public List<ReservationInfos> getAllReservations(){
-        List<Reservation> allReservations = reservationService.getAllReservations();
-        return mapReservations(allReservations);
+    public List<ReservationInfos> getAllReservations() {
+        if (authService.getCurrentUser().getAccessLevel() >= 1) {
+            List<Reservation> allReservations = reservationService.getAllReservations();
+            return mapReservations(allReservations);
+        }
+        return null;
     }
 
     @GetMapping(path = "/current_user")
@@ -33,9 +38,12 @@ public class ReservationController {
     }
 
     @GetMapping(path = "/user/{id}")
-    public List<ReservationInfos> getAllReservationsByUser(@PathVariable  Long id){
-        List<Reservation> allReservations = reservationService.getAllReservationsByUserId(id);
-        return mapReservations(allReservations);
+    public List<ReservationInfos> getAllReservationsByUser(@PathVariable  Long id) {
+        if (authService.getCurrentUser().getAccessLevel() >= 1) {
+            List<Reservation> allReservations = reservationService.getAllReservationsByUserId(id);
+            return mapReservations(allReservations);
+        }
+        return null;
     }
 
     @PostMapping("/add")

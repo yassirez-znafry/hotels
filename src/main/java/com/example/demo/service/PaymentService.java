@@ -31,12 +31,15 @@ public class PaymentService {
         Optional<User> user = userRepository.findById(paymentInfos.getUserId());
         user.orElseThrow(() -> new SpringHotelManagerException("User with this id does not exist!!"));
 
+
         Payment payment = new Payment();
         payment.setSum(paymentInfos.getSum());
         payment.setRent(rent.get());
         payment.setUser(user.get());
         payment.setPaymentDate(paymentInfos.getPaymentDate());
 
+        rent.get().setPaid(true);
+        rentRepository.save(rent.get());
         paymentRepository.save(payment);
 
 

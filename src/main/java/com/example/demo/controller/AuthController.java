@@ -27,6 +27,9 @@ public class AuthController {
 
     @GetMapping("/")
     public List<UserInfos> getAllUser(){
+        if(authService.getCurrentUser().getAccessLevel() == 0)   //  Only the manager and front desk service can access this method
+            return null;
+
         List<User> users = authService.getAllUsers();
         List<UserInfos> userInfosList = new ArrayList<UserInfos>();
 
