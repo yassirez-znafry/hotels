@@ -1,16 +1,18 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.dto.RegisterRequest;
 import com.example.demo.dto.RoomInfos;
 import com.example.demo.model.Room;
 import com.example.demo.service.RoomService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/api/room")
@@ -34,4 +36,23 @@ public class RoomController {
         }
         return allRoomsInfos;
     }
+
+    @PostMapping("/add")
+    public ResponseEntity<String> addRoom(@RequestBody RoomInfos roomInfos){
+        roomService.addRoom(roomInfos);
+        return new ResponseEntity<>("user registration successful", OK);
+    }
+
+    @PostMapping("/modify")
+    public ResponseEntity<String> modifyRoom(@RequestBody RoomInfos roomInfos){
+        roomService.modifyRoom(roomInfos);
+        return new ResponseEntity<>("user modification successful", OK);
+    }
+
+    @DeleteMapping("/delete/{room_id}")
+    public ResponseEntity<String> deleteRoom(@PathVariable Long room_id){
+        roomService.deleteRoomById(room_id);
+        return new ResponseEntity<>("user deleted successfully", OK);
+    }
+
 }
