@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,7 +55,14 @@ public class RentService {
         Optional<User> user = userRepository.findById(user_id);
         user.orElseThrow(() -> new SpringHotelManagerException("User with the id given not found!!"));
 
-        return rentRepository.findAllByUser(user.get());
+        List<Rent> allRents = new ArrayList<Rent>();
+
+        for(Reservation reservation: user.get().getReservations()){
+            Optional<Rent> rent = rentRepository.findByReservation(reservation);
+            if(rent.isPresent())
+                allRents.add(rent.get());
+        }
+        return allRents;
     }
 
 

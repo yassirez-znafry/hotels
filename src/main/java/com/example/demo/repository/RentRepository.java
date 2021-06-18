@@ -12,6 +12,4 @@ import java.util.Optional;
 @Repository
 public interface RentRepository extends JpaRepository<Rent, Long> {
     Optional<Rent> findByReservation(Reservation reservation);
-
-    List<Rent> findAllByUser(User user);
 }

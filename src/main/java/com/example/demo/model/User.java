@@ -42,7 +42,7 @@ public class User {
     @OneToMany(mappedBy = "id", targetEntity = Reservation.class)
     private List<Reservation> reservations;
 
-    @OneToMany(mappedBy = "claim_id", targetEntity = Claim.class)
+    @OneToMany(mappedBy = "id", targetEntity = Claim.class)
     private List<Claim> claims;
 
 }

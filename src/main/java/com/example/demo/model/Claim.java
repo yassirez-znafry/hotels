@@ -25,6 +25,6 @@ public class Claim {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "user_id",
-            foreignKey = @ForeignKey(name = "claim_fk1"))
+            foreignKey = @ForeignKey(name = "claim__fk1"))
     private User user;
 }

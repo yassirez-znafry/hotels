@@ -30,7 +30,8 @@ public class RoomService {
 
 
     public void addRoom(RoomInfos roomInfos){
-        Optional<RoomType> roomType = roomTypeRepository.findByRoomTypeName(roomInfos.getRoomType());
+        Optional<RoomType> roomType = roomTypeRepository.findRoomTypeByRoomTypeName(roomInfos.getRoomType());
+//        Optional<RoomType> roomType = roomTypeRepository.findById(12L);
         roomType.orElseThrow(() -> new SpringHotelManagerException("Room type not found!!"));
 
         Optional<RoomStatus> roomStatus = roomStatusRepository.findByRoomStatusName(roomInfos.getRoomStatus());
@@ -57,7 +58,7 @@ public class RoomService {
         Optional<Room> roomOptional = roomRepository.findById(roomInfos.getRoomId());
         roomOptional.orElseThrow(() -> new SpringHotelManagerException("Room with the same number not found!!"));
 
-        Optional<RoomType> roomType = roomTypeRepository.findByRoomTypeName(roomInfos.getRoomType());
+        Optional<RoomType> roomType = roomTypeRepository.findRoomTypeByRoomTypeName(roomInfos.getRoomType());
         roomType.orElseThrow(() -> new SpringHotelManagerException("Room type not found!!"));
 
         Optional<RoomStatus> roomStatus = roomStatusRepository.findByRoomStatusName(roomInfos.getRoomStatus());
