@@ -38,6 +38,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/auth/**")
                 .permitAll()
+                .antMatchers(HttpMethod.GET,"/api/room/")
+                .permitAll()
+                .antMatchers(HttpMethod.GET,"/api/room_status/")
+                .permitAll()
+                .antMatchers(HttpMethod.GET,"/api/room_type/")
+                .permitAll()
+                .antMatchers(HttpMethod.GET,"/api/reservation/")
+                .permitAll()
+                .antMatchers(HttpMethod.GET,"/api/rent/")
+                .permitAll()
                 .antMatchers("/v2/api-docs",
                         "/configuration/ui",
                         "/swagger-resources/**",
