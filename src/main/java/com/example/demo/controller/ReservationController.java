@@ -58,7 +58,7 @@ public class ReservationController {
         return new ResponseEntity<>("Reservation modification successful", OK);
     }
 
-    @DeleteMapping("/cancel")
+    @PostMapping("/cancel")
     public ResponseEntity<String> deleteReservation(@RequestBody ReservationInfos reservationInfos){
         reservationService.deleteReservationForCurrentUser(reservationInfos);
         return new ResponseEntity<>("Reservation deleted successfully", OK);

@@ -41,6 +41,20 @@ public class RoomController {
         return allRoomsInfos;
     }
 
+    @GetMapping("/{room_id}")
+    public RoomInfos getRoomById(@PathVariable Long room_id){
+        Room room = roomService.getRoomById(room_id);
+        RoomInfos roomInfos = new RoomInfos();
+        roomInfos.setRoomId(room.getId());
+        roomInfos.setRoomNumber(room.getRoomNumber());
+        roomInfos.setRoomPrice(room.getRoomPrice());
+        roomInfos.setRoomType(room.getRoomType().getRoomTypeName());
+        roomInfos.setRoomStatus(room.getRoomStatus().getRoomStatusName());
+
+
+        return roomInfos;
+    }
+
     @PostMapping("/add")
     public ResponseEntity<String> addRoom(@RequestBody RoomInfos roomInfos){
         if(authService.getCurrentUser().getAccessLevel() == 2) {

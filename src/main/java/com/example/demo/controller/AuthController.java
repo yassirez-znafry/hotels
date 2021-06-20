@@ -39,6 +39,7 @@ public class AuthController {
             userInfos.setUsername(user.getUserName());
             userInfos.setEmail(user.getUserEmail());
             userInfos.setImage(user.getImage());
+            userInfos.setAccessLevel(user.getAccessLevel());
 
             userInfosList.add(userInfos);
         }
@@ -79,16 +80,16 @@ public class AuthController {
     public UserInfos UserInfos(@PathVariable long id) throws JSONException {
 
         User user = authService.getUserById(id);
-        UserInfos userInfos = new UserInfos(user.getUserName(), user.getUserEmail(), user.getImage(), user.getUserId());
+        UserInfos userInfos = new UserInfos(user.getUserName(), user.getUserEmail(), user.getImage(), user.getAccessLevel(), user.getUserId());
         return userInfos;
 
     }
 
     @GetMapping("/user/myInfos")
-    public UserInfos UserInfos() throws JSONException {
+    public UserInfos CurrentUserInfos() throws JSONException {
         User user = authService.getUserById(authService.getCurrentUser().getUserId());
 
-        UserInfos userInfos = new UserInfos(user.getUserName(), user.getUserEmail(), user.getImage(), user.getUserId());
+        UserInfos userInfos = new UserInfos(user.getUserName(), user.getUserEmail(), user.getImage(), user.getAccessLevel(), user.getUserId());
         return userInfos;
 
     }

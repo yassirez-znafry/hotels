@@ -1,12 +1,14 @@
 package com.example.demo.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -30,9 +32,12 @@ public class Reservation {
             foreignKey = @ForeignKey(name = "reservation_fk2"))
     private User user;
 
-    private Timestamp reservationDate;
-    private Timestamp reservationCheckInDate;
-    private Timestamp reservationCheckOutDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date reservationDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date reservationCheckInDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date reservationCheckOutDate;
     private Long adultsNumber;
     private Long childrenNumber;
 

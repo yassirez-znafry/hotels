@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -38,11 +39,11 @@ public class ReservationService {
         Reservation reservation = new Reservation();
         reservation.setUser(currentUser);
         reservation.setRoom(room.get());
-        reservation.setReservationDate(reservationInfos.getReservationDate());
+        reservation.setReservationDate(new Date(System.currentTimeMillis()));
         reservation.setReservationCheckInDate(reservationInfos.getReservationCheckInDate());
         reservation.setReservationCheckOutDate(reservationInfos.getReservationCheckOutDate());
-        reservation.setAdultsNumber(reservationInfos.getAdultsNumber());
-        reservation.setChildrenNumber(reservation.getChildrenNumber());
+        reservation.setAdultsNumber(reservationInfos.getAdultsNumber() >= 0 ? reservationInfos.getAdultsNumber() : 0);
+        reservation.setChildrenNumber(reservationInfos.getChildrenNumber() >= 0 ? reservationInfos.getChildrenNumber() : 0);
 
 
         reservationRepository.save(reservation);

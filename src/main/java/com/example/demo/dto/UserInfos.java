@@ -13,5 +13,6 @@ public class UserInfos {
     private String username;
     private String email;
     private String image;
+    private Integer accessLevel;
     private Long id;
 }

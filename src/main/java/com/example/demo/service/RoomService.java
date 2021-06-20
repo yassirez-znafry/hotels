@@ -28,6 +28,12 @@ public class RoomService {
         return allRooms;
     }
 
+    public Room getRoomById(Long room_id){
+        Optional<Room> room = roomRepository.findById(room_id);
+        room.orElseThrow(() -> new SpringHotelManagerException("Room not found!!"));
+        return room.get();
+    }
+
 
     public void addRoom(RoomInfos roomInfos){
         Optional<RoomType> roomType = roomTypeRepository.findRoomTypeByRoomTypeName(roomInfos.getRoomType());
