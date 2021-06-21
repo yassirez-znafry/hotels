@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -28,5 +29,5 @@ public class Payment {
     @OneToOne
     private User user;
 
-    private Timestamp paymentDate;
+    private Date paymentDate;
 }

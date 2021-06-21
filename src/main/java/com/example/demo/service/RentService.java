@@ -15,10 +15,12 @@ import com.example.demo.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @Service
 @AllArgsConstructor
@@ -40,6 +42,13 @@ public class RentService {
 //            throw new SpringHotelManagerException("Access denied!!");
 //        }
 
+        Optional<Rent> optionalRent = rentRepository.findByReservation(reservation.get());
+        optionalRent.ifPresent(new Consumer<Rent>() {
+            @Override
+            public void accept(Rent rent) {
+                throw new SpringHotelManagerException("Rent already exists!!");
+            }
+        });
         Rent rent = new Rent();
         rent.setPaid(false);
         rent.setReservation(reservation.get());
