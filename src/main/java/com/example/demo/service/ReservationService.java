@@ -75,7 +75,7 @@ public class ReservationService {
         Optional<Reservation> reservation = reservationRepository.findById(reservationInfos.getReservationId());
         reservation.orElseThrow(() -> new SpringHotelManagerException("Reservation with the same id not found!!"));
 
-        Optional<Room> room = roomRepository.findById(reservationInfos.getRoomId());
+        Optional<Room> room = roomRepository.findById(reservation.get().getRoom().getId());
         room.orElseThrow(() -> new SpringHotelManagerException("No room with the id given!!"));
 
         if(!checkCurrentUserId(reservationInfos.getUserId())){
