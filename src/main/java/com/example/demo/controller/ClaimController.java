@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
@@ -38,8 +39,9 @@ public class ClaimController {
     }
 
     @PostMapping(path = "/")
-    public ResponseEntity<Claim> addClaim(@RequestBody ClaimInfos claimInfos) {
-        return status(HttpStatus.CREATED).body(claimService.addClaim(claimInfos));
+    public ResponseEntity<String> addClaim(@RequestBody ClaimInfos claimInfos) {
+        claimService.addClaim(claimInfos);
+        return new ResponseEntity<>("Claim added successfully", OK);
     }
 
     @GetMapping(path = "/{claim_id}")
@@ -53,7 +55,8 @@ public class ClaimController {
     }
 
     @PutMapping(path = "/{claim_id}")
-    public ResponseEntity<Claim> updateClaim(@PathVariable Long claim_id, @RequestBody ClaimInfos claimInfos){
-        return status(HttpStatus.OK).body(claimService.updateClaim(claim_id, claimInfos));
+    public ResponseEntity<String> updateClaim(@PathVariable Long claim_id, @RequestBody ClaimInfos claimInfos){
+        claimService.updateClaim(claim_id, claimInfos);
+        return new ResponseEntity<>("Reservation deleted successfully", OK);
     }
 }

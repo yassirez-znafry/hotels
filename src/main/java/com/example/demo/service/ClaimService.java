@@ -29,6 +29,8 @@ public class ClaimService {
         claim.setProcessed(claimInfos.isProcessed());
         claim.setUser(authService.getCurrentUser());
 
+        System.out.println("-------- ATTENTION ---------------" + claim.getId() + " - " + claim.getContent() + " - " + claim.getUser().getUserId());
+
         return claimRepository.save(claim);
     }
 

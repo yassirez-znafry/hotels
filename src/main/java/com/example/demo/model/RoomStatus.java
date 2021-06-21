@@ -23,7 +23,7 @@ public class RoomStatus {
     private String roomStatusName;
     private String roomStatusDescription;
 
-    @OneToMany(mappedBy = "id", orphanRemoval = true, cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "roomStatus", orphanRemoval = true, cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, targetEntity = Room.class)
     private List<Room> rooms;
 }

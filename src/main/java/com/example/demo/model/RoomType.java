@@ -24,7 +24,7 @@ public class RoomType {
     private String roomTypeName;
     private String roomTypeDescription;
 
-    @OneToMany(mappedBy = "id", orphanRemoval = true, cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "roomType", orphanRemoval = true, cascade = CascadeType.ALL,
     fetch = FetchType.LAZY, targetEntity = Room.class)
     private List<Room> rooms;
 

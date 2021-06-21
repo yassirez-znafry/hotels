@@ -34,10 +34,7 @@ public class Room {
             foreignKey = @ForeignKey(name = "room_fk2"))
     public RoomStatus roomStatus;
 
-    @OneToMany(mappedBy = "id", targetEntity = Reservation.class)
+    @OneToMany(mappedBy = "room", targetEntity = Reservation.class)
     private List<Reservation> reservations;
-
-    @OneToMany(mappedBy = "id", targetEntity = Rent.class)
-    private List<Rent> rents;
 
  }

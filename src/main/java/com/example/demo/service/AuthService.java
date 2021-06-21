@@ -58,7 +58,7 @@ public class AuthService {
 
     }
 
-    private String generateVerificationToken(User user) {
+    public String generateVerificationToken(User user) {
         String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setVtToken(token);
@@ -94,7 +94,7 @@ public class AuthService {
 
         return new AuthenticationResponse(token,
                 refreshTokenService.generateRefreshToken().getToken(),
-                Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()),
+                Instant.now().plusMillis(3155695200000L),
                 loginRequest.getUsername());
     }
 
@@ -114,7 +114,7 @@ public class AuthService {
         return AuthenticationResponse.builder()
                 .authenticationToken(token)
                 .refreshToken(refreshTokenRequest.getRefreshToken())
-                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+                .expiresAt(Instant.now().plusMillis(3155695200000L))
                 .username(refreshTokenRequest.getUsername())
                 .build();
     }

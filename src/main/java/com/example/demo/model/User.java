@@ -39,10 +39,10 @@ public class User {
     private Integer accessLevel;
     private String image;
 
-    @OneToMany(mappedBy = "id", targetEntity = Reservation.class)
+    @OneToMany(mappedBy = "user", targetEntity = Reservation.class)
     private List<Reservation> reservations;
 
-    @OneToMany(mappedBy = "id", targetEntity = Claim.class)
+    @OneToMany(mappedBy = "user", targetEntity = Claim.class)
     private List<Claim> claims;
 
 }
