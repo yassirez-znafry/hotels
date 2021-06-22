@@ -47,6 +47,12 @@ public class AuthController {
         return userInfosList;
     }
 
+    @PostMapping("/level_up")
+    public ResponseEntity<String> signup(@RequestBody UserInfos userInfos){
+        authService.levelUp(userInfos);
+        return new ResponseEntity<>("user level access increased successful", OK);
+    }
+
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest){
         authService.signup(registerRequest);

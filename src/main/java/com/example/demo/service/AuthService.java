@@ -1,9 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.AuthenticationResponse;
-import com.example.demo.dto.LoginRequest;
-import com.example.demo.dto.RefreshTokenRequest;
-import com.example.demo.dto.RegisterRequest;
+import com.example.demo.dto.*;
 import com.example.demo.exceptions.SpringHotelManagerException;
 import com.example.demo.model.NotificationEmail;
 import com.example.demo.model.User;
@@ -94,7 +91,7 @@ public class AuthService {
 
         return new AuthenticationResponse(token,
                 refreshTokenService.generateRefreshToken().getToken(),
-                Instant.now().plusMillis(3155695200000L),
+                Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()),
                 loginRequest.getUsername());
     }
 
@@ -114,7 +111,7 @@ public class AuthService {
         return AuthenticationResponse.builder()
                 .authenticationToken(token)
                 .refreshToken(refreshTokenRequest.getRefreshToken())
-                .expiresAt(Instant.now().plusMillis(3155695200000L))
+                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
                 .username(refreshTokenRequest.getUsername())
                 .build();
     }
@@ -125,4 +122,14 @@ public class AuthService {
         return userRepository.findById(id).get();
     }
 
+    @Transactional
+    public void levelUp(UserInfos userInfos) {
+        Optional<User> user = userRepository.findById(userInfos.getId());
+        user.orElseThrow(() -> new SpringHotelManagerException("User with the id given not found!!"));
+
+        user.get().setAccessLevel(1);
+
+        userRepository.save(user.get());
+
+    }
 }

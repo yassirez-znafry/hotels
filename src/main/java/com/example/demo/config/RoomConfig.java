@@ -70,9 +70,51 @@ public class RoomConfig {
             b.setRoomType(rt6);
             b.setRoomStatus(rs1);
 
+            Room r3 = new Room();
+            r3.setRoomNumber(3L);
+            r3.setRoomPrice(200L);
+            r3.setRoomType(rt1);
+            r3.setRoomStatus(rs1);
+
+            Room r4 = new Room();
+            r4.setRoomNumber(3L);
+            r4.setRoomPrice(200L);
+            r4.setRoomType(rt1);
+            r4.setRoomStatus(rs1);
+
+            Room r5 = new Room();
+            r5.setRoomNumber(3L);
+            r5.setRoomPrice(200L);
+            r5.setRoomType(rt1);
+            r5.setRoomStatus(rs1);
+
+            Room r6 = new Room();
+            r6.setRoomNumber(3L);
+            r6.setRoomPrice(200L);
+            r6.setRoomType(rt1);
+            r6.setRoomStatus(rs1);
+
+            Room r7 = new Room();
+            r7.setRoomNumber(3L);
+            r7.setRoomPrice(200L);
+            r7.setRoomType(rt1);
+            r7.setRoomStatus(rs1);
+
+            Room r8 = new Room();
+            r8.setRoomNumber(3L);
+            r8.setRoomPrice(200L);
+            r8.setRoomType(rt1);
+            r8.setRoomStatus(rs1);
+
+            Room r9 = new Room();
+            r9.setRoomNumber(3L);
+            r9.setRoomPrice(200L);
+            r9.setRoomType(rt1);
+            r9.setRoomStatus(rs1);
+
 
             roomRepository.saveAll(
-                    List.of(a, b)
+                    List.of(a, b, r3, r4, r5, r6, r7, r8, r9)
             );
         };
 

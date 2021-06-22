@@ -74,13 +74,10 @@ public class RoomController {
         return new ResponseEntity<>("Room modification unsuccessful", FORBIDDEN);
     }
 
-    @DeleteMapping("/delete/{room_id}")
+    @PostMapping("/delete/{room_id}")
     public ResponseEntity<String> deleteRoom(@PathVariable Long room_id) {
-        if (authService.getCurrentUser().getAccessLevel() == 2) {
             roomService.deleteRoomById(room_id);
             return new ResponseEntity<>("Room deleted successfully", OK);
-        }
-        return new ResponseEntity<>("Room deleted successfully", FORBIDDEN);
     }
 
 
