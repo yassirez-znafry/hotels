@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.apache.commons.io.FilenameUtils;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -35,18 +36,20 @@ public class FileController {
     @Autowired
     private FileStorageService storageService;
 
-    @Value("${user.home}" + "/Desktop/Nouveau/afkar-react/public/img/")
+    @Value("${user.home}" + "/Desktop/hotels front/hotels/public")
     public String uploadDir;
 
 
-    @RequestMapping(value = "/api/auth/upload", method = RequestMethod.POST)
-    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("data") MultipartFile file) throws IOException {
+    @RequestMapping(value = "/api/auth/upload/{roomNumber}", method = RequestMethod.POST)
+    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("data") MultipartFile file, @PathVariable long roomNumber) throws IOException {
+        System.out.println(roomNumber);
+
         String message = "";
 
 
         try {
             Path copyLocation = Paths
-                    .get(uploadDir + File.separator + StringUtils.cleanPath(file.getOriginalFilename()));
+                    .get(uploadDir + File.separator + StringUtils.cleanPath(roomNumber+"."+FilenameUtils.getExtension(file.getOriginalFilename())));
             Files.copy(file.getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
             message = "Uploaded the file successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));

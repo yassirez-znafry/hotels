@@ -23,6 +23,7 @@ public class Room {
 
     private Long roomNumber;
     private Long roomPrice;
+    private String roomImage;
 
     @ManyToOne
     @JoinColumn(name = "roomtype_id", nullable = false, referencedColumnName = "roomtype_id",
@@ -37,4 +38,4 @@ public class Room {
     @OneToMany(mappedBy = "room", targetEntity = Reservation.class)
     private List<Reservation> reservations;
 
- }
+}

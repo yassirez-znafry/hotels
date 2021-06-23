@@ -15,4 +15,5 @@ public class RoomInfos {
     private Long roomPrice;
     private String roomType;
     private String roomStatus;
+    private String roomImage;
 }

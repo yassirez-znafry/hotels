@@ -48,6 +48,7 @@ public class RoomService {
         room.setRoomPrice(roomInfos.getRoomPrice());
         room.setRoomType(roomType.get());
         room.setRoomStatus(roomStatus.get());
+        room.setRoomImage(roomInfos.getRoomImage());
 
         roomRepository.save(room);
     }
@@ -75,6 +76,7 @@ public class RoomService {
         room.setRoomType(roomType.get());
         room.setRoomNumber(roomInfos.getRoomNumber());
         room.setRoomPrice(roomInfos.getRoomPrice());
+        room.setRoomImage(roomInfos.getRoomImage());
 
 
         roomRepository.save(room);

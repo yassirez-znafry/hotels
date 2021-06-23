@@ -35,6 +35,7 @@ public class RoomController {
             roomInfos.setRoomPrice(room.getRoomPrice());
             roomInfos.setRoomType(room.getRoomType().getRoomTypeName());
             roomInfos.setRoomStatus(room.getRoomStatus().getRoomStatusName());
+            roomInfos.setRoomImage(room.getRoomImage());
 
             allRoomsInfos.add(roomInfos);
         }
@@ -50,6 +51,7 @@ public class RoomController {
         roomInfos.setRoomPrice(room.getRoomPrice());
         roomInfos.setRoomType(room.getRoomType().getRoomTypeName());
         roomInfos.setRoomStatus(room.getRoomStatus().getRoomStatusName());
+        roomInfos.setRoomImage(room.getRoomImage());
 
 
         return roomInfos;
@@ -74,10 +76,13 @@ public class RoomController {
         return new ResponseEntity<>("Room modification unsuccessful", FORBIDDEN);
     }
 
-    @PostMapping("/delete/{room_id}")
+    @DeleteMapping("/delete/{room_id}")
     public ResponseEntity<String> deleteRoom(@PathVariable Long room_id) {
+        if (authService.getCurrentUser().getAccessLevel() == 2) {
             roomService.deleteRoomById(room_id);
             return new ResponseEntity<>("Room deleted successfully", OK);
+        }
+        return new ResponseEntity<>("Room deleted successfully", FORBIDDEN);
     }
 
 
