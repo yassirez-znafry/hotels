@@ -36,7 +36,7 @@ public class FileController {
     @Autowired
     private FileStorageService storageService;
 
-    @Value("${user.home}" + "/Desktop/hotels front/hotels/public")
+    @Value("${user.home}" + "/Desktop/Web/hotels-frontend/public")
     public String uploadDir;
 
 

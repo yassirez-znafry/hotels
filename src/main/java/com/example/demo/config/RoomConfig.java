@@ -67,7 +67,7 @@ public class RoomConfig {
 
             Room b = new Room();
             b.setRoomNumber(2L);
-            a.setRoomImage("/room.jpeg");
+            b.setRoomImage("/room.jpeg");
             b.setRoomPrice(800L);
             b.setRoomType(rt6);
             b.setRoomStatus(rs1);

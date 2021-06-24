@@ -4,6 +4,7 @@ package com.example.demo.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -22,6 +23,8 @@ public class Payment {
     @Column(name = "payment_id")
     private Long id;
     private Long sum;
+    private Boolean withCash;
+    private Long accountNumber;
 
     @OneToOne
     private Rent rent;

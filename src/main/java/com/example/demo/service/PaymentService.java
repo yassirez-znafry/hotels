@@ -56,6 +56,12 @@ public class PaymentService {
         payment.setRent(rent.get());
         payment.setUser(user.get());
         payment.setPaymentDate(new Date(System.currentTimeMillis()));
+        payment.setWithCash(paymentInfos.getWithCash());
+        if(!paymentInfos.getWithCash()){
+            payment.setAccountNumber(paymentInfos.getAccountNumber());
+        }else{
+            payment.setAccountNumber(null);
+        }
 
         rent.get().setPaid(true);
         rentRepository.save(rent.get());

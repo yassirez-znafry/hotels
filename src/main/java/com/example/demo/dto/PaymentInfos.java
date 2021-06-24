@@ -13,6 +13,8 @@ import java.sql.Timestamp;
 public class PaymentInfos {
     private Long id;
     private Long sum;
+    private Boolean withCash;
+    private Long accountNumber;
     private Long rentId;
     private Long userId;
     private Date paymentDate;

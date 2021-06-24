@@ -36,6 +36,8 @@ public class User {
     @Nullable
     private boolean userEnabled;
 
+
+
     private Integer accessLevel;
     private String image;
 
